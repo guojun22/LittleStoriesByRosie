@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- This first line tells the browser "this is a modern HTML page." Always keep it. -->
+<html lang="en">
+
+<head>
+  <!-- The <head> holds info ABOUT the page that visitors don't see directly. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rivera Family Photography</title>
+
+  <!-- This line connects our styling file (CSS) to this page. -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Everything inside <body> is what visitors actually SEE. -->
+
+  <!-- NAV: the menu bar at the top -->
+  <header class="nav">
+    <div class="logo">Rivera Photography</div>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO: the big welcome section -->
+  <section class="hero">
+    <h1>Moments, made to last.</h1>
+    <p>Family-run photography for weddings, portraits, and the little days in between.</p>
+    <a href="#contact" class="button">Book a session</a>
+  </section>
+
+  <!-- WORK: a gallery grid of photos -->
+  <section id="work" class="gallery">
+    <h2>Our Work</h2>
+    <div class="grid">
+      <!-- Each box is one photo. Replace the src with YOUR own image files. -->
+      <img src="https://picsum.photos/id/1015/600/700" alt="A river landscape">
+      <img src="https://picsum.photos/id/1025/600/700" alt="A dog portrait">
+      <img src="https://picsum.photos/id/1005/600/700" alt="A person outdoors">
+      <img src="https://picsum.photos/id/1039/600/700" alt="A mountain view">
+      <img src="https://picsum.photos/id/1043/600/700" alt="City buildings">
+      <img src="https://picsum.photos/id/1062/600/700" alt="A beach scene">
+    </div>
+  </section>
+
+  <!-- ABOUT: your story -->
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>
+      We're a family who has been photographing our community for over ten years.
+      We believe the best photos happen when people forget the camera is there —
+      so we keep things relaxed, natural, and fun.
+    </p>
+  </section>
+
+  <!-- CONTACT: how to reach you -->
+  <section id="contact" class="contact">
+    <h2>Get in Touch</h2>
+    <p>Ready to book, or have a question? We'd love to hear from you.</p>
+    <a href="mailto:hello@example.com" class="button">Email us</a>
+  </section>
+
+  <!-- FOOTER: the bottom of the page -->
+  <footer>
+    <p>&copy; 2026 Rivera Family Photography</p>
+  </footer>
+
+</body>
+</html>

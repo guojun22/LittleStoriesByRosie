@@ -34,15 +34,15 @@
   </header>
 
   <!-- ============ HERO ============ -->
-  <!-- Like Harlow: a slideshow of photos slowly crossfading behind the brand
-       name, with a small tagline near the bottom. The slides rotate via script.js.
-       Swap these image URLs for Rosie's real photos later. -->
+  <!-- Like Harlow: the brand name over a full photo. As you scroll, the text
+       lifts away faster than the photo (a parallax effect, powered by script.js).
+       Swap this image URL for Rosie's real hero photo later. -->
   <section class="hero">
-    <div class="hero-slideshow">
+    <div class="hero-bg">
       <div class="hero-slide is-active" style="background-image:url('https://picsum.photos/id/1018/1920/1280')"></div>
-      <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1015/1920/1280')"></div>
       <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1039/1920/1280')"></div>
       <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1043/1920/1280')"></div>
+      <div class="hero-slide" style="background-image:url('https://picsum.photos/id/1015/1920/1280')"></div>
     </div>
     <div class="hero-inner">
       <p class="hero-eyebrow">Little Stories by</p>
@@ -53,21 +53,23 @@
 
   <!-- ============ ABOUT (text left, photo with offset block right) ============ -->
   <section id="about" class="about-section">
-    <div class="about-text">
-      <p class="eyebrow">About Me</p>
-      <h2 class="about-heading">Every family has a history. Every life is shaped by little stories.</h2>
-      <p>
-        I'm drawn to the moments that shape us. The joyful ones, the meaningful
-        ones, and everything in between. Every family carries a history, made up
-        of countless little stories that often go unnoticed while we're living them.
-      </p>
-      <p>
-        My hope is to preserve a small piece of that story, not just how it
-        looked, but how it felt.
-      </p>
-    </div>
-    <div class="about-photo">
-      <img src="https://picsum.photos/id/1062/800/1050" alt="Rosie with her camera">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="eyebrow">About Me</p>
+        <h2 class="about-heading">Every family has a history. Every life is shaped by little stories.</h2>
+        <p>
+          I'm drawn to the moments that shape us. The joyful ones, the meaningful
+          ones, and everything in between. Every family carries a history, made up
+          of countless little stories that often go unnoticed while we're living them.
+        </p>
+        <p>
+          My hope is to preserve a small piece of that story, not just how it
+          looked, but how it felt.
+        </p>
+      </div>
+      <div class="about-photo">
+        <img src="https://picsum.photos/id/1062/800/1050" alt="Rosie with her camera">
+      </div>
     </div>
   </section>
 
@@ -171,11 +173,17 @@
         </div>
       </div>
 
-      <!-- Right: the contact form.
-           NOTE: to actually receive submissions on a GitHub Pages site, this
-           form needs to connect to a form service (like Formspree). Until then
-           it's display-only. I can wire that up next. -->
-      <form class="contact-form" action="#" method="post">
+      <!-- Right: the contact form, connected to FormSubmit.
+           Inquiries are emailed to hello@littlestoriesbyrosie.com, and the
+           customer gets an automatic reply (see _autoresponse below). -->
+      <form class="contact-form" action="https://formsubmit.co/hello@littlestoriesbyrosie.com" method="POST">
+        <!-- FormSubmit settings (hidden from visitors) -->
+        <input type="hidden" name="_subject" value="New inquiry from littlestoriesbyrosie.com">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_autoresponse" value="Hi there! Thank you so much for reaching out to Little Stories by Rosie. I've received your message and will personally get back to you within 1-2 days to talk through the details. In the meantime, feel free to follow along on Instagram @littlestoriesbyrosie. Warmly, Rosie">
+        <!-- Honeypot: bots fill this; real people can't see it. Reduces spam. -->
+        <input type="text" name="_honey" style="display:none">
+
         <div class="field">
           <input type="text" name="name" placeholder="Name">
         </div>

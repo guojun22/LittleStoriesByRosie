@@ -53,18 +53,30 @@ items.forEach(el => observer.observe(el));
 
 
 /* ============================================================
-   HERO SLIDESHOW
-   Slowly crossfades through the hero photos. Only the slide with
-   the "is-active" class is visible; we move that class along the
-   list on a timer.
+   HERO PARALLAX
+   As you scroll, nudge the hero photo DOWN by half the scroll
+   distance. Because the page (and the wordmark) scroll up at full
+   speed, the photo appears to move slower — so the "Rosie" text
+   lifts away faster than the background, like Harlow.
    ============================================================ */
-const slides = document.querySelectorAll('.hero-slide');
-if (slides.length > 1) {
+const heroBg = document.querySelector('.hero-bg');
+if (heroBg) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y <= window.innerHeight) {          // only while the hero is on screen
+      heroBg.style.transform = 'translateY(' + (y * 0.5) + 'px)';
+    }
+  }, { passive: true });
+}
+
+/* The hero photos crossfade on a timer, so the background keeps updating. */
+const heroSlides = document.querySelectorAll('.hero-slide');
+if (heroSlides.length > 1) {
   let current = 0;
   setInterval(() => {
-    slides[current].classList.remove('is-active');
-    current = (current + 1) % slides.length; // wrap back to the first
-    slides[current].classList.add('is-active');
+    heroSlides[current].classList.remove('is-active');
+    current = (current + 1) % heroSlides.length; // wrap back to the first
+    heroSlides[current].classList.add('is-active');
   }, 5000); // change photo every 5 seconds
 }
 
@@ -96,12 +108,33 @@ if (track) {
    ============================================================ */
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault(); // stop the browser's default page reload
-    contactForm.innerHTML =
-      '<div class="form-thanks">' +
-        '<p>Thank you!</p>' +
-        '<p>We will be in touch with you shortly!</p>' +
-      '</div>';
+
+    // Send the form data to FormSubmit, which emails it to Rosie and sends
+    // the customer an automatic reply.
+    const formData = new FormData(contactForm);
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/hello@littlestoriesbyrosie.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+      const result = await response.json();
+
+      // FormSubmit returns success as the string "true".
+      if (result.success === true || result.success === 'true') {
+        // Success: swap the form for the thank-you message.
+        contactForm.innerHTML =
+          '<div class="form-thanks">' +
+            '<p>Thank you!</p>' +
+            '<p>We will be in touch with you shortly!</p>' +
+          '</div>';
+      } else {
+        alert(result.message || 'Sorry, something went wrong sending your message. Please email hello@littlestoriesbyrosie.com instead.');
+      }
+    } catch (err) {
+      alert('Sorry, something went wrong sending your message. Please email hello@littlestoriesbyrosie.com instead.');
+    }
   });
 }

@@ -24,6 +24,7 @@ body {
   background: var(--cream);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;   /* guard against any accidental sideways scroll */
 }
 
 img { display: block; width: 100%; }
@@ -102,25 +103,32 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   text-align: center;
   color: #fff;
 }
-/* The crossfading photo slideshow behind the wordmark */
-.hero-slideshow { position: absolute; inset: 0; z-index: 0; }
+/* The parallax container. script.js shifts it slower than the page on scroll,
+   so the wordmark appears to lift away faster than the photo. */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  will-change: transform;
+}
+/* Each photo layer. They crossfade on a timer; only the ".is-active" one shows. */
 .hero-slide {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1.6s ease-in-out;   /* the crossfade */
+  transition: opacity 1.6s ease-in-out;   /* the crossfade between photos */
 }
 .hero-slide.is-active { opacity: 1; }
 /* A soft dark overlay so the white text stays readable over any photo */
-.hero-slideshow::after {
+.hero-bg::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(rgba(30,29,26,0.28), rgba(30,29,26,0.42));
 }
-/* Keep the text above the slideshow */
+/* Keep the text above the background */
 .hero-inner { position: relative; z-index: 2; }
 /* The small caps line above the giant brand name */
 .hero-eyebrow {
@@ -182,14 +190,16 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 
 /* ---------------- ABOUT (text left, photo right with offset block) ---------------- */
 .about-section {
+  background: #e5eae2;   /* soft sage */
+  padding: 8rem 6vw;
+}
+.about-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6vw;
   align-items: center;
-  padding: 8rem 6vw;
   max-width: 1300px;
-  margin: 0 auto;
-  background: #ffffff;   /* clean white, like the screenshot */
+  margin: 0 auto;        /* center the content, but the white bg fills the screen */
 }
 .about-text .eyebrow { color: var(--dark); font-weight: 500; }
 /* The big condensed uppercase headline */
@@ -231,10 +241,8 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 
 /* ---------------- INFO / PRICING ---------------- */
 .info-section {
-  background: #fff;
+  background: #e5eae2;   /* soft sage */
   padding: 6rem 4vw 8rem;
-  max-width: 1100px;
-  margin: 0 auto;
 }
 .info-photo { max-width: 640px; margin: 0 auto; text-align: center; }
 .info-photo img { width: 100%; height: auto; object-fit: cover; }
@@ -279,7 +287,7 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 .info-cta { text-align: center; margin-top: 4.5rem; }
 
 /* ---------------- PORTFOLIO (3 category columns) ---------------- */
-.portfolio { padding: 7rem 4vw; background: #fff; }
+.portfolio { padding: 7rem 4vw; background: #f1ebe1; }  /* warm cream */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -332,9 +340,10 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 }
 .btn-solid:hover { background: #000; }
 
-/* ---------------- JOURNAL (3 blog posts) ---------------- */
-.journal { padding: 6rem 4vw; background: #ece7de; }
-.journal h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 3.5rem; }
+/* ---------------- JOURNAL (3 blog posts) — dark section ---------------- */
+.journal { padding: 6rem 4vw; background: #26241f; }
+.journal h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 3.5rem; color: #fff; }
+.journal > .eyebrow { color: rgba(255,255,255,0.6); }
 .posts {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -343,11 +352,11 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   margin: 0 auto;
 }
 .post img { aspect-ratio: 4/3; object-fit: cover; margin-bottom: 1.25rem; }
-.post .eyebrow { margin-bottom: 0.5rem; }
-.post h3 { font-size: 1.3rem; }
+.post .eyebrow { margin-bottom: 0.5rem; color: rgba(255,255,255,0.6); }
+.post h3 { font-size: 1.3rem; color: #f3efe8; }
 
 /* ---------------- CONTACT ---------------- */
-.contact-section { background: #fff; }
+.contact-section { background: #f1ebe1; }  /* warm cream */
 .contact-banner img {
   width: 100%;
   height: 70vh;
@@ -566,7 +575,8 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   .nav-group:first-of-type, .nav-group:last-of-type { justify-content: center; }
   .monogram { order: -1; width: 100%; text-align: center; margin-bottom: 0.4rem; }
   .nav-group a { font-size: 0.7rem; letter-spacing: 0.15em; }
-  .about-section { grid-template-columns: 1fr; gap: 4rem; padding: 5rem 8vw; }
+  .about-section { padding: 5rem 8vw; }
+  .about-inner { grid-template-columns: 1fr; gap: 4rem; }
   .about-photo::before { top: -1.5rem; right: -1.5rem; }
   .gallery-track img { flex: 0 0 85%; height: 60vh; }
   .gallery-intro { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 6vw 5rem; }

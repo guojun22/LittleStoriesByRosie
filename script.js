@@ -11,7 +11,6 @@ const selectors = [
   '.about-text', '.about-photo',
   '.info-photo', '.pricing-label', '.price-col', '.info-cta',
   '.pf-item',
-  '.feature',
   '.journal > .eyebrow', '.journal > h2', '.post',
   '.contact-info', '.contact-form'
 ];
@@ -24,7 +23,7 @@ items.forEach(el => el.classList.add('reveal'));
 // 2. Add a small STAGGER so grouped items (cards, posts) appear one
 //    after another instead of all at once. We give each item in a
 //    group a slightly longer delay.
-const groups = ['.portfolio-grid', '.featured', '.posts'];
+const groups = ['.portfolio-grid', '.posts'];
 groups.forEach(groupSelector => {
   const group = document.querySelector(groupSelector);
   if (!group) return;

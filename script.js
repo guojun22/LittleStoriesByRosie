@@ -53,6 +53,23 @@ items.forEach(el => observer.observe(el));
 
 
 /* ============================================================
+   HERO SLIDESHOW
+   Slowly crossfades through the hero photos. Only the slide with
+   the "is-active" class is visible; we move that class along the
+   list on a timer.
+   ============================================================ */
+const slides = document.querySelectorAll('.hero-slide');
+if (slides.length > 1) {
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('is-active');
+    current = (current + 1) % slides.length; // wrap back to the first
+    slides[current].classList.add('is-active');
+  }, 5000); // change photo every 5 seconds
+}
+
+
+/* ============================================================
    GALLERY CAROUSEL ARROWS (only runs on gallery pages)
    Clicking the arrows scrolls the photo strip left or right.
    ============================================================ */

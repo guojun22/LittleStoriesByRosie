@@ -95,16 +95,33 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   position: relative;
   height: calc(100vh - 66px);  /* fill the screen below the nav bar */
   min-height: 560px;
-  background: linear-gradient(rgba(30,29,26,0.28), rgba(30,29,26,0.4)),
-              url('https://picsum.photos/id/1018/1920/1280');
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: #fff;
 }
+/* The crossfading photo slideshow behind the wordmark */
+.hero-slideshow { position: absolute; inset: 0; z-index: 0; }
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;   /* the crossfade */
+}
+.hero-slide.is-active { opacity: 1; }
+/* A soft dark overlay so the white text stays readable over any photo */
+.hero-slideshow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(30,29,26,0.28), rgba(30,29,26,0.42));
+}
+/* Keep the text above the slideshow */
+.hero-inner { position: relative; z-index: 2; }
 /* The small caps line above the giant brand name */
 .hero-eyebrow {
   font-size: clamp(0.7rem, 1.4vw, 0.9rem);
@@ -126,6 +143,7 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 /* The tagline pinned near the bottom */
 .hero-tagline {
   position: absolute;
+  z-index: 2;
   bottom: 3.5rem;
   left: 0; right: 0;
   text-align: center;

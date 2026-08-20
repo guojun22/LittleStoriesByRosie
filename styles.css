@@ -1,148 +1,585 @@
 /* ============================================================
-   STYLES.CSS — this file controls how everything LOOKS.
-   Read the comments to learn what each block does.
+   LITTLE STORIES BY ROSIE
+   A Harlow-inspired design: modern, bold, minimal.
+   Cream backgrounds, dark text, big images, airy spacing.
    ============================================================ */
 
-/* This first block sets sensible defaults for the whole page. */
-* {
-  margin: 0;              /* remove the browser's default spacing */
-  padding: 0;
-  box-sizing: border-box; /* makes sizing math predictable */
+/* --- Color & font variables (change these to re-theme the whole site) --- */
+:root {
+  --cream:   #f3efe8;   /* warm off-white background */
+  --dark:    #1f1d1a;   /* near-black for dark sections & text */
+  --text:    #34302b;   /* body text */
+  --muted:   #8a8378;   /* soft grey-brown for labels */
+  --accent:  #a9744f;   /* warm terracotta accent */
+  --sans: 'Jost', system-ui, sans-serif;          /* modern headings & body */
+  --serif: 'Cormorant Garamond', Georgia, serif;   /* elegant italic accents */
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: Georgia, 'Times New Roman', serif; /* an elegant font for photography */
-  color: #2b2b2b;         /* dark grey text, softer than pure black */
-  line-height: 1.6;       /* space between lines, easier to read */
-  background: #faf8f5;     /* a warm off-white */
+  font-family: var(--sans);
+  font-weight: 300;
+  color: var(--text);
+  background: var(--cream);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* --- The top navigation bar --- */
-.nav {
-  display: flex;                 /* lay children out in a row */
-  justify-content: space-between;/* logo on left, links on right */
-  align-items: center;
-  padding: 1.5rem 3rem;
-  position: sticky;              /* stays at the top as you scroll */
-  top: 0;
-  background: #faf8f5;
-  z-index: 10;
-}
+img { display: block; width: 100%; }
 
-.logo {
-  font-size: 1.3rem;
-  letter-spacing: 1px;
-}
-
-.nav nav a {
-  margin-left: 2rem;
-  text-decoration: none; /* remove the default underline */
-  color: #2b2b2b;
-}
-
-.nav nav a:hover {
-  color: #b08d57; /* a gold accent when you hover */
-}
-
-/* --- The big hero welcome section --- */
-.hero {
-  text-align: center;
-  padding: 8rem 2rem;
-  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-              url('https://picsum.photos/id/1018/1600/900');
-  background-size: cover;   /* photo fills the whole area */
-  background-position: center;
-  color: white;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
+/* "Eyebrow" = the small UPPERCASE label above headings (a Harlow signature). */
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
   margin-bottom: 1rem;
 }
+.center { text-align: center; }
 
-.hero p {
-  font-size: 1.3rem;
+/* Headings: large, light-weight, with an italic serif for emphasis. */
+h1, h2, h3 { font-weight: 400; line-height: 1.15; letter-spacing: 0.01em; }
+h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
+
+/* Wordmark used in the footer */
+.brand {
+  font-size: 1.25rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* ---------------- NAVIGATION ---------------- */
+/* A solid dark bar fixed to the top, with a centered monogram between two
+   groups of links — Harlow's signature nav. */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3vw;
+  background: var(--dark);
+  padding: 1.4rem 4vw;
+}
+.nav-group {
+  display: flex;
+  gap: 2.75rem;
+  flex: 1;
+}
+.nav-group:first-of-type { justify-content: flex-end; }
+.nav-group:last-of-type  { justify-content: flex-start; }
+.nav-group a {
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255,255,255,0.85);
+  transition: color 0.3s;
+}
+.nav-group a:hover { color: #fff; }
+.monogram {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  position: relative;
+  height: calc(100vh - 66px);  /* fill the screen below the nav bar */
+  min-height: 560px;
+  background: linear-gradient(rgba(30,29,26,0.28), rgba(30,29,26,0.4)),
+              url('https://picsum.photos/id/1018/1920/1280');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+/* The small caps line above the giant brand name */
+.hero-eyebrow {
+  font-size: clamp(0.7rem, 1.4vw, 0.9rem);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  padding-left: 0.4em; /* balance the letter-spacing */
+}
+/* The giant brand name across the middle */
+.hero-brand {
+  font-family: var(--serif);
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: clamp(4rem, 15vw, 12rem);
+  letter-spacing: 0.18em;
+  line-height: 1;
+  padding-left: 0.18em; /* balance the wide tracking */
+}
+/* The tagline pinned near the bottom */
+.hero-tagline {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  letter-spacing: 0.12em;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.92);
+}
+
+/* ---------------- BUTTONS ---------------- */
+.btn {
+  display: inline-block;
+  padding: 1rem 2.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.7);
+  transition: background 0.3s, color 0.3s;
+}
+.btn:hover { background: #fff; color: var(--dark); }
+.btn-light { border-color: rgba(255,255,255,0.7); }
+
+.link-arrow {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 4px;
+}
+
+/* ---------------- ABOUT (text left, photo right with offset block) ---------------- */
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: center;
+  padding: 8rem 6vw;
+  max-width: 1300px;
+  margin: 0 auto;
+  background: #ffffff;   /* clean white, like the screenshot */
+}
+.about-text .eyebrow { color: var(--dark); font-weight: 500; }
+/* The big condensed uppercase headline */
+.about-heading {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-size: clamp(1.9rem, 3.5vw, 3.1rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
   margin-bottom: 2rem;
 }
-
-/* --- Reusable button style (used in a few places) --- */
-.button {
-  display: inline-block;
-  padding: 0.8rem 2rem;
-  background: #b08d57;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  letter-spacing: 1px;
-  transition: background 0.3s; /* smooth color change on hover */
+.about-text p:not(.eyebrow) {
+  color: #4a4640;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+  max-width: 30rem;
 }
 
-.button:hover {
-  background: #96763f;
+/* Photo with a soft grey rectangle offset behind its top-right corner */
+.about-photo { position: relative; }
+.about-photo::before {
+  content: '';
+  position: absolute;
+  top: -2.5rem;
+  right: -2.5rem;
+  width: 70%;
+  height: 85%;
+  background: #ececea;
+  z-index: 0;
+}
+.about-photo img {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 3/4;
+  object-fit: cover;
 }
 
-/* --- Section headings and spacing --- */
-section {
-  padding: 5rem 3rem;
-}
-
-h2 {
-  text-align: center;
-  font-size: 2.2rem;
-  margin-bottom: 2.5rem;
-}
-
-/* --- The photo gallery grid --- */
-.grid {
-  display: grid;
-  /* auto-fit means the grid adds as many columns as fit the screen. */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+/* ---------------- INFO / PRICING ---------------- */
+.info-section {
+  background: #fff;
+  padding: 6rem 4vw 8rem;
   max-width: 1100px;
-  margin: 0 auto; /* center the grid on the page */
-}
-
-.grid img {
-  width: 100%;
-  height: 350px;
-  object-fit: cover; /* crop photos nicely instead of stretching them */
-  border-radius: 4px;
-  transition: transform 0.4s;
-}
-
-.grid img:hover {
-  transform: scale(1.03); /* a gentle zoom on hover */
-}
-
-/* --- About + Contact: centered text blocks --- */
-.about, .contact {
-  text-align: center;
-  max-width: 700px;
   margin: 0 auto;
 }
+.info-photo { max-width: 640px; margin: 0 auto; text-align: center; }
+.info-photo img { width: 100%; height: auto; object-fit: cover; }
+/* The thin vertical line dropping from the image */
+.info-connector {
+  display: block;
+  width: 1px;
+  height: 64px;
+  background: var(--dark);
+  margin: 0 auto;
+}
+.pricing-label {
+  color: var(--dark);
+  font-weight: 500;
+  margin: 1.75rem 0 4rem;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.price-title {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: 0.03em;
+  margin-bottom: 2rem;
+}
+.price-meta { color: #4a4640; line-height: 1.9; margin-bottom: 1.75rem; }
+.price-list { list-style: none; }
+.price-list li {
+  color: #4a4640;
+  line-height: 2.1;
+  padding-left: 1.2em;
+  position: relative;
+}
+.price-list li::before { content: '\2022'; position: absolute; left: 0; }  /* bullet dot */
+.info-cta { text-align: center; margin-top: 4.5rem; }
 
-.about p, .contact p {
-  font-size: 1.15rem;
+/* ---------------- PORTFOLIO (3 category columns) ---------------- */
+.portfolio { padding: 7rem 4vw; background: #fff; }
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4vw;
+  max-width: 1300px;
+  margin: 0 auto;
+  text-align: center;
+}
+/* Each column is a flex box so the button can be pinned to the bottom,
+   keeping all three buttons aligned even when descriptions differ in length. */
+.pf-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.pf-item img {
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+.pf-title {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  letter-spacing: 0.03em;
+  margin-bottom: 1.25rem;
+}
+.pf-desc {
+  color: #57534d;
+  max-width: 22rem;
+  margin: 0 auto 2.5rem;
+}
+/* margin-top:auto pushes the button to the bottom of the column */
+.pf-item .btn-solid { margin-top: auto; }
+/* Solid black button ("View Images") */
+.btn-solid {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--dark);
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.btn-solid:hover { background: #000; }
+
+/* ---------------- FEATURED (2 wide showcases) ---------------- */
+.featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  padding: 0 4vw 6rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.feature { position: relative; overflow: hidden; text-decoration: none; }
+.feature img { aspect-ratio: 3/2; object-fit: cover; transition: transform 0.6s ease; }
+.feature:hover img { transform: scale(1.04); }
+.feature-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  color: #fff;
+}
+.feature-caption .eyebrow { color: rgba(255,255,255,0.85); margin-bottom: 0.4rem; }
+.feature-caption h3 { font-size: 1.6rem; }
+
+/* ---------------- JOURNAL (3 blog posts) ---------------- */
+.journal { padding: 6rem 4vw; background: #ece7de; }
+.journal h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 3.5rem; }
+.posts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.post img { aspect-ratio: 4/3; object-fit: cover; margin-bottom: 1.25rem; }
+.post .eyebrow { margin-bottom: 0.5rem; }
+.post h3 { font-size: 1.3rem; }
+
+/* ---------------- CONTACT ---------------- */
+.contact-section { background: #fff; }
+.contact-banner img {
+  width: 100%;
+  height: 70vh;
+  min-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+.contact-body {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 5vw;
+  align-items: start;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 6rem 4vw 8rem;
+}
+.contact-title {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.6rem;
+}
+.contact-info .eyebrow { color: var(--dark); font-weight: 500; margin-bottom: 1.75rem; }
+.contact-text { color: #4a4640; line-height: 1.9; max-width: 22rem; margin-bottom: 2rem; }
+.social-icons { display: flex; gap: 1.5rem; }
+.social-icons a { color: var(--dark); display: inline-flex; transition: color 0.3s; }
+.social-icons a:hover { color: var(--accent); }
+.social-icons svg { width: 22px; height: 22px; fill: currentColor; }
+
+/* The bordered form grid */
+.contact-form { border: 1px solid var(--dark); }
+.field { padding: 1.1rem 1.3rem; border-bottom: 1px solid var(--dark); }
+.field:last-child { border-bottom: none; }
+.field-row { display: flex; border-bottom: 1px solid var(--dark); }
+.field-row .field { flex: 1; border-bottom: none; }
+.field-row .field:first-child { border-right: 1px solid var(--dark); }
+.field input,
+.field textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--dark);
+  outline: none;
+  resize: none;
+}
+.field input::placeholder,
+.field textarea::placeholder { color: #6b6660; }
+.field.message { position: relative; padding-bottom: 0; }
+.field.message textarea { min-height: 180px; padding-bottom: 4.5rem; }
+.form-submit {
+  position: absolute;
+  right: 0; bottom: 0;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1.1rem 2.75rem;
+  transition: background 0.3s;
+}
+.form-submit:hover { background: #000; }
+
+/* The "Thank you" message shown after the form is submitted */
+.form-thanks {
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2.5rem;
+  padding: 2rem;
+}
+.form-thanks p {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--dark);
+  font-size: 1.05rem;
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 4rem 4vw;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.footer .brand { color: #fff; display: inline-block; margin-bottom: 1rem; }
+.footer .social a { color: var(--accent); text-decoration: none; }
+.footer .credit { font-size: 0.8rem; margin-top: 1rem; letter-spacing: 0.1em; }
+
+/* ---------------- GALLERY DETAIL PAGE ---------------- */
+/* A horizontally-scrolling strip of photos with prev/next arrows. */
+.gallery-strip { overflow: hidden; background: #fff; }
+.gallery-track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;              /* hide scrollbar in Firefox */
+}
+.gallery-track::-webkit-scrollbar { display: none; }  /* hide in Safari/Chrome */
+.gallery-track img {
+  flex: 0 0 calc((100% - 20px) / 3);  /* about 3 photos across */
+  height: 82vh;
+  min-height: 460px;
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+
+/* The row under the photos: category switcher on the left, arrows on the right */
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2.25rem 4vw;
+  flex-wrap: wrap;
+}
+.continue-browsing {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+.cb-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 500;
+}
+.continue-browsing a {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--dark);
+  transition: color 0.3s;
+}
+.continue-browsing a:hover { color: var(--accent); }
+.continue-browsing a.active { color: #b8b4ad; pointer-events: none; }  /* current category */
+
+.gallery-arrows { display: flex; gap: 0.75rem; }
+.arrow {
+  width: 52px; height: 52px;
+  border: 1px solid #d8d4cc;
+  background: transparent;
+  color: var(--dark);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.arrow:hover { background: var(--dark); color: #fff; }
+
+/* Title (left) + description (right) below the gallery */
+.gallery-intro {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5vw;
+  align-items: start;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 4rem 4vw 8rem;
+}
+.gallery-title {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  letter-spacing: 0.03em;
+}
+.gallery-desc p {
+  color: #4a4640;
+  letter-spacing: 0.02em;
+  line-height: 1.9;
+  font-size: 1.05rem;
   margin-bottom: 1.5rem;
 }
 
-/* --- Footer --- */
-footer {
-  text-align: center;
-  padding: 2rem;
-  background: #2b2b2b;
-  color: #cfcabf;
-  font-size: 0.9rem;
+/* ---------------- SCROLL ANIMATIONS ----------------
+   Elements start invisible and shifted down, then fade + rise
+   into place when they scroll into view (the .is-visible class
+   is added by script.js). */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
-/* --- Make it work on phones ---
-   This block only applies when the screen is narrow. */
-@media (max-width: 600px) {
-  .nav {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .hero h1 {
-    font-size: 2.3rem;
-  }
+/* Accessibility: if the visitor prefers reduced motion, show
+   everything immediately with no animation. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 800px) {
+  .nav { flex-wrap: wrap; gap: 0.6rem 1.5rem; padding: 1.2rem 5vw; }
+  .nav-group { gap: 1.25rem; flex: none; }
+  .nav-group:first-of-type, .nav-group:last-of-type { justify-content: center; }
+  .monogram { order: -1; width: 100%; text-align: center; margin-bottom: 0.4rem; }
+  .nav-group a { font-size: 0.7rem; letter-spacing: 0.15em; }
+  .about-section { grid-template-columns: 1fr; gap: 4rem; padding: 5rem 8vw; }
+  .about-photo::before { top: -1.5rem; right: -1.5rem; }
+  .gallery-track img { flex: 0 0 85%; height: 60vh; }
+  .gallery-intro { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 6vw 5rem; }
+  .portfolio-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 3.5rem; max-width: 24rem; }
+  .contact-body { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 6vw 5rem; }
+  .contact-banner img { height: 45vh; }
+  .field-row { flex-direction: column; }
+  .field-row .field:first-child { border-right: none; border-bottom: 1px solid var(--dark); }
+  .featured { grid-template-columns: 1fr; }
+  .posts { grid-template-columns: 1fr; }
 }

@@ -29,7 +29,7 @@
     <nav class="nav-group">
       <a href="#info">Info</a>
       <a href="#contact">Contact</a>
-      <a href="#journal">Journal</a>
+      <a href="#book">Book</a>
     </nav>
   </header>
 
@@ -205,26 +205,81 @@
     </div>
   </section>
 
-  <!-- ============ JOURNAL ============ -->
-  <section id="journal" class="journal">
-    <p class="eyebrow center">The Journal</p>
-    <h2 class="center">Latest Stories</h2>
-    <div class="posts">
-      <article class="post">
-        <img src="https://picsum.photos/id/1080/600/450" alt="Journal post">
-        <span class="eyebrow">Sessions</span>
-        <h3>the Andersons' coastal family session at sunrise</h3>
-      </article>
-      <article class="post">
-        <img src="https://picsum.photos/id/1084/600/450" alt="Journal post">
-        <span class="eyebrow">Tips</span>
-        <h3>an at-home newborn session full of soft morning light</h3>
-      </article>
-      <article class="post">
-        <img src="https://picsum.photos/id/1069/600/450" alt="Journal post">
-        <span class="eyebrow">Behind the Scenes</span>
-        <h3>a family session at a historic coastal cottage</h3>
-      </article>
+  <!-- ============ BOOK ============ -->
+  <!-- A 3-step booking flow, no backend required:
+       1) Customer picks a session (each has its own price + deposit).
+       2) A free Cal.com calendar shows real open dates/times for that
+          session and lets them reserve a slot. The "Pay Deposit" step
+          below stays hidden until Cal.com actually confirms the booking
+          (detected via its postMessage events — see script.js) — a
+          customer can't skip straight to paying without picking a time.
+       3) A "Pay Deposit" button sends them to a Stripe Payment Link (a
+          Stripe-hosted checkout page for a fixed amount — no backend
+          needed). Rosie confirms the booking once Stripe shows the
+          deposit was paid; Cal.com only holds the time slot, it doesn't
+          collect payment itself.
+       SETUP NEEDED before this goes live:
+       - Cal.com account: littlestoriesbyrosie — create "mini-session" and
+         "full-session" event types there with the durations/availability
+         you want, and set each one's location to "In Person" (it currently
+         defaults to "Cal Video," which is for video calls, not photo
+         sessions). Also set both to "Requires confirmation" (Event type →
+         Advanced) so a slot a customer reserved but hasn't paid the
+         deposit for stays held instead of possibly getting double-booked —
+         see the longer note in script.js.
+       - In Stripe, create a Payment Link for each deposit amount ($50 and
+         $100), then replace the two data-stripe-link placeholders below
+         with your real Payment Link URLs (they look like
+         https://buy.stripe.com/xxxxx). -->
+  <section id="book" class="book-section">
+    <p class="eyebrow center">Book a Session</p>
+    <h2 class="center book-heading">Reserve Your Date</h2>
+
+    <!-- Step 1: session menu -->
+    <div class="book-step" id="book-step-session">
+      <p class="book-step-label center">Step 1 — Choose Your Session</p>
+      <div class="session-grid">
+        <button type="button" class="session-card" data-session-name="Mini Session" data-cal-link="littlestoriesbyrosie/mini-session" data-deposit="$50" data-stripe-link="https://buy.stripe.com/test_fZu3cvc8TdkQ0Pk46S00000">
+          <h3>Mini Session</h3>
+          <p class="session-price">$150</p>
+          <p class="session-deposit">$50 deposit to book</p>
+        </button>
+        <button type="button" class="session-card" data-session-name="Full Session" data-cal-link="littlestoriesbyrosie/full-session" data-deposit="$100" data-stripe-link="https://buy.stripe.com/test_bJe7sL3Cna8E2Xs0UG00001">
+          <h3>Full Session</h3>
+          <p class="session-price">$350</p>
+          <p class="session-deposit">$100 deposit to book</p>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: date/time picker (a plain iframe pointed at Cal.com's public
+         booking page — Cal.com's own JS embed SDK turned out to reliably
+         break when switching between two calLinks on one page, so we embed
+         the page directly instead and just swap the iframe's src). -->
+    <div class="book-step" id="book-step-calendar" hidden>
+      <p class="book-step-label center">Step 2 — Choose an Available Date</p>
+      <iframe id="cal-inline" class="cal-inline" title="Availability calendar"></iframe>
+    </div>
+
+    <!-- Step 3: deposit payment. Stays hidden until script.js detects a real
+         Cal.com booking confirmation for the current session. -->
+    <div class="book-step" id="book-step-deposit" hidden>
+      <p class="book-step-label center">Step 3 — Pay Your Deposit to Confirm</p>
+      <div class="deposit-box">
+        <p>
+          Your <strong id="deposit-session-name">session</strong> time is reserved!
+          Pay your <strong id="deposit-amount"></strong> deposit by card to confirm your booking.
+        </p>
+        <a id="deposit-pay-button" class="btn-solid deposit-pay-button" href="#" target="_blank" rel="noopener">Pay Deposit</a>
+        <p class="deposit-note">
+          You'll be taken to a secure Stripe checkout page. Your booking is
+          confirmed once the deposit is received — I'll follow up by email shortly after.
+        </p>
+        <p class="deposit-policy">
+          Deposits are non-refundable for cancellations or reschedules made within
+          7 days of your session.
+        </p>
+      </div>
     </div>
   </section>
 

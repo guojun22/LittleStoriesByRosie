@@ -340,20 +340,67 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 }
 .btn-solid:hover { background: #000; }
 
-/* ---------------- JOURNAL (3 blog posts) — dark section ---------------- */
-.journal { padding: 6rem 4vw; background: #26241f; }
-.journal h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 3.5rem; color: #fff; }
-.journal > .eyebrow { color: rgba(255,255,255,0.6); }
-.posts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  max-width: 1300px;
-  margin: 0 auto;
+/* ---------------- BOOK ---------------- */
+.book-section { background: #e5eae2; padding: 7rem 4vw 8rem; }  /* soft sage, distinct from Contact's warm cream */
+.book-heading {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.03em;
+  margin: 0.5rem 0 4rem;
 }
-.post img { aspect-ratio: 4/3; object-fit: cover; margin-bottom: 1.25rem; }
-.post .eyebrow { margin-bottom: 0.5rem; color: rgba(255,255,255,0.6); }
-.post h3 { font-size: 1.3rem; color: #f3efe8; }
+.book-step { max-width: 900px; margin: 0 auto; }
+.book-step + .book-step { margin-top: 4.5rem; }
+.book-step-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+/* Step 1: session cards */
+.session-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.session-card {
+  font-family: var(--sans);
+  text-align: center;
+  background: transparent;
+  border: 1px solid var(--dark);
+  padding: 2.75rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.session-card h3 {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.session-price { font-size: 1.6rem; font-family: var(--serif); font-style: italic; margin-bottom: 0.5rem; }
+.session-deposit { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); }
+.session-card:hover { background: rgba(31,29,26,0.05); }
+.session-card.is-selected { background: var(--dark); color: #fff; }
+.session-card.is-selected .session-deposit { color: rgba(255,255,255,0.7); }
+
+/* Step 2: Cal.com inline calendar container */
+.cal-inline { width: 100%; min-height: 600px; background: #fff; border: 1px solid var(--dark); }
+
+/* Step 3: deposit payment */
+.deposit-box {
+  border: 1px solid var(--dark);
+  padding: 2.75rem 3rem;
+  text-align: center;
+}
+.deposit-box p { color: #4a4640; line-height: 1.9; max-width: 34rem; margin: 0 auto 1.25rem; }
+.deposit-box strong { color: var(--dark); }
+.deposit-pay-button { margin-bottom: 1.75rem; }
+.deposit-note { font-size: 0.9rem; }
+.deposit-policy { font-size: 0.8rem; color: var(--muted); margin-top: -0.5rem; }
 
 /* ---------------- CONTACT ---------------- */
 .contact-section { background: #f1ebe1; }  /* warm cream */
@@ -582,10 +629,11 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   .gallery-intro { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 6vw 5rem; }
   .portfolio-grid { grid-template-columns: 1fr; gap: 4rem; }
   .pricing-grid { grid-template-columns: 1fr; gap: 3.5rem; max-width: 24rem; }
+  .session-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .deposit-box { padding: 2.25rem 1.5rem; }
   .contact-body { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 6vw 5rem; }
   .contact-banner img { height: 45vh; }
   .field-row { flex-direction: column; }
   .field-row .field:first-child { border-right: none; border-bottom: 1px solid var(--dark); }
   .featured { grid-template-columns: 1fr; }
-  .posts { grid-template-columns: 1fr; }
 }

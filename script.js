@@ -11,7 +11,6 @@ const selectors = [
   '.about-text', '.about-photo',
   '.info-photo', '.pricing-label', '.price-col', '.info-cta',
   '.pf-item',
-  '.journal > .eyebrow', '.journal > h2', '.post',
   '.contact-info', '.contact-form'
 ];
 
@@ -23,7 +22,7 @@ items.forEach(el => el.classList.add('reveal'));
 // 2. Add a small STAGGER so grouped items (cards, posts) appear one
 //    after another instead of all at once. We give each item in a
 //    group a slightly longer delay.
-const groups = ['.portfolio-grid', '.posts'];
+const groups = ['.portfolio-grid'];
 groups.forEach(groupSelector => {
   const group = document.querySelector(groupSelector);
   if (!group) return;
@@ -96,6 +95,81 @@ if (track) {
   });
   if (nextBtn) nextBtn.addEventListener('click', () => {
     track.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+}
+
+
+/* ============================================================
+   BOOKING FLOW (Step 1: pick session → Step 2: pick a real open time on
+   Cal.com → Step 3: pay the deposit via Stripe, only unlocked once Cal.com
+   confirms the time was actually reserved).
+
+   The calendar is a plain iframe pointed at Cal.com's public booking page
+   (not their JS embed SDK) — the SDK turned out to reliably break when
+   switching between two calLinks on one page (it would leave a broken,
+   invisible-sized floating duplicate behind no matter how the container
+   was reset). A plain iframe just needs its src swapped, which Cal.com's
+   booking pages support directly via the "?embed=true" query param.
+
+   Even without the SDK, Cal.com's booking page still broadcasts its normal
+   postMessage events (type names prefixed "CAL:") to the parent window —
+   confirmed by logging window "message" events against a real iframe. We
+   listen for the booking-confirmed one and only reveal the deposit button
+   once it fires, so a customer can't reach the payment step without
+   actually reserving a time first.
+
+   IMPORTANT: reserving a time slot on Cal.com does not by itself stop
+   someone else from taking it — only paying the deposit does, and Rosie
+   confirming manually after seeing the Stripe payment is what finalizes
+   things. To stop a slot from being double-booked while a deposit is
+   pending, set both event types (mini-session, full-session) in Cal.com to
+   "Requires confirmation" (Event type → Advanced → Requires confirmation).
+   That keeps a reserved-but-unconfirmed slot hidden from other visitors
+   until Rosie approves or rejects it.
+
+   The deposit button just links straight to each session's Stripe Payment
+   Link (set via data-stripe-link on the .session-card in index.html) — no
+   JS payment integration needed, Stripe hosts the whole checkout page.
+
+   SETUP NEEDED before this goes live:
+   - In index.html, each .session-card's data-cal-link points at your real
+     Cal.com username + event slug — double check these match your account.
+   - In index.html, replace each .session-card's data-stripe-link with your
+     real Stripe Payment Link for that session's deposit amount.
+   - In Cal.com, set both event types to "Requires confirmation" (see above).
+   ============================================================ */
+const sessionCards = document.querySelectorAll('.session-card');
+if (sessionCards.length) {
+  const calendarStep = document.getElementById('book-step-calendar');
+  const depositStep = document.getElementById('book-step-deposit');
+  const calIframe = document.getElementById('cal-inline');
+  let activeSession = null; // the session currently shown in the calendar iframe
+
+  sessionCards.forEach(card => {
+    card.addEventListener('click', () => {
+      // Highlight the chosen card only.
+      sessionCards.forEach(c => c.classList.remove('is-selected'));
+      card.classList.add('is-selected');
+
+      activeSession = card.dataset;
+      calIframe.src = 'https://cal.com/' + activeSession.calLink + '?embed=true';
+
+      depositStep.hidden = true; // stays hidden until a real booking is confirmed below
+      calendarStep.hidden = false;
+      calendarStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  window.addEventListener('message', (event) => {
+    if (!activeSession || !String(event.origin).includes('cal.com')) return;
+    const type = (event.data && (event.data.fullType || event.data.type)) || '';
+    if (!/booking.*success/i.test(type)) return;
+
+    document.getElementById('deposit-session-name').textContent = activeSession.sessionName;
+    document.getElementById('deposit-amount').textContent = activeSession.deposit;
+    document.getElementById('deposit-pay-button').href = activeSession.stripeLink;
+    depositStep.hidden = false;
+    depositStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 }
 

@@ -287,6 +287,17 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 
 /* ---------------- PORTFOLIO (3 category columns) ---------------- */
 .portfolio { padding: 7rem 4vw; background: #f1ebe1; }  /* warm cream */
+.portfolio-intro { max-width: 40rem; margin: 0 auto 5rem; }
+.portfolio-intro h2 {
+  font-family: 'Oswald', var(--sans);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--dark);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+}
+.portfolio-intro p:not(.eyebrow) { color: #4a4640; line-height: 1.9; }
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -18,18 +18,20 @@
 <body>
 
   <!-- ============ NAVIGATION ============ -->
-  <!-- A solid dark bar with links split around a centered monogram, like Harlow. -->
+  <!-- A solid dark bar with links split around a centered monogram, like Harlow.
+       Each link is its own page now (About/Portfolio/Info/Contact/Book), not an
+       anchor scroll — this same nav block is repeated on every page. -->
   <header class="nav">
     <nav class="nav-group">
-      <a href="#">Home</a>
-      <a href="#about">About</a>
-      <a href="#portfolio">Portfolio</a>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="portfolio.html">Portfolio</a>
     </nav>
-    <a href="#" class="monogram"><img src="images/logo/botanical-r.png" alt="Little Stories by Rosie"></a>
+    <a href="index.html" class="monogram"><img src="images/logo/botanical-r.png" alt="Little Stories by Rosie"></a>
     <nav class="nav-group">
-      <a href="#info">Info</a>
-      <a href="#contact">Contact</a>
-      <a href="#book">Book</a>
+      <a href="info.html">Info</a>
+      <a href="contact.html">Contact</a>
+      <a href="book.html">Book</a>
     </nav>
   </header>
 
@@ -49,247 +51,16 @@
     <p class="hero-tagline">Family Photographer<br>specializing in warm, unscripted stories</p>
   </section>
 
-  <!-- ============ ABOUT (text left, photo with offset block right) ============ -->
-  <section id="about" class="about-section">
-    <div class="about-inner">
-      <div class="about-text">
-        <p class="eyebrow">About Me</p>
-        <h2 class="about-heading">Every family has a history. Every life is shaped by little stories.</h2>
-        <p>
-          I'm drawn to the moments that shape us. The joyful ones, the meaningful
-          ones, and everything in between. Every family carries a history, made up
-          of countless little stories that often go unnoticed while we're living them.
-        </p>
-        <p>
-          My hope is to preserve a small piece of that story, not just how it
-          looked, but how it felt.
-        </p>
-      </div>
-      <div class="about-photo">
-        <img src="images/families/DSC_2619.jpg" alt="A family reviewing photos together">
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PORTFOLIO ============ -->
-  <!-- Three categories, each with an image, a title, a short description,
-       and a "View Images" button linking to that gallery (built later). -->
-  <section id="portfolio" class="portfolio">
-    <div class="portfolio-grid">
-
-      <div class="pf-item">
-        <img src="images/families/DSC_3105.jpg" alt="Families">
-        <h3 class="pf-title">Families</h3>
-        <p class="pf-desc">For the everyday moments, growing seasons, and the stories shared across generations.</p>
-        <a href="families.html" class="btn-solid">View Images</a>
-      </div>
-
-      <div class="pf-item">
-        <img src="images/couples/DSC_1881-Edit.jpg" alt="Couples">
-        <h3 class="pf-title">Couples</h3>
-        <p class="pf-desc">From new beginnings to decades of shared history.</p>
-        <a href="couples.html" class="btn-solid">View Images</a>
-      </div>
-
-      <div class="pf-item">
-        <img src="images/lifestyle/DSC_1454.jpg" alt="Personal Stories">
-        <h3 class="pf-title">Personal Stories</h3>
-        <p class="pf-desc">The in-between moments, familiar routines, and the beauty of ordinary life.</p>
-        <a href="personal-stories.html" class="btn-solid">View Images</a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============ INFO / PRICING ============ -->
-  <section id="info" class="info-section">
-    <div class="info-photo">
-      <img src="images/general/DSC_3446.jpg" alt="A family on a bluff at golden hour">
-      <span class="info-connector"></span>
-    </div>
-
-    <p class="eyebrow center pricing-label">Pricing</p>
-
-    <div class="pricing-grid">
-      <div class="price-col">
-        <h3 class="price-title">Story</h3>
-        <p class="price-meta">
-          $350<br>
-          Perfect for families, couples, maternity, and milestone sessions.
-        </p>
-        <ul class="price-list">
-          <li>Up to 60 minutes</li>
-          <li>One location</li>
-          <li>50+ edited images</li>
-          <li>Online gallery</li>
-          <li>Personal printing rights</li>
-        </ul>
-      </div>
-
-      <div class="price-col">
-        <h3 class="price-title">Documentary</h3>
-        <p class="price-meta">
-          $200 per hour<br>
-          2-hour minimum<br>
-          Designed for families who want to document an experience rather than a photoshoot.
-        </p>
-        <ul class="price-list">
-          <li>Relaxed, unposed coverage</li>
-          <li>Online gallery</li>
-          <li>Personal printing rights</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="info-cta">
-      <a href="#contact" class="btn-solid">Inquire Here</a>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
-  <section id="contact" class="contact-section">
-    <!-- Full-width banner photo -->
-    <div class="contact-banner">
-      <img src="images/families/DSC_1512-Edit-2.jpg" alt="A family at dusk on the beach">
-    </div>
-
-    <div class="contact-body">
-      <!-- Left: intro + social links -->
-      <div class="contact-info">
-        <h2 class="contact-title">Contact</h2>
-        <p class="eyebrow">Say Hello</p>
-        <p class="contact-text">
-          I'd love to hear about your family and the story you'd like to tell.
-          Share a few details below and I'll be in touch soon to talk through
-          the little moments you want to remember.
-        </p>
-        <div class="social-icons">
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8.5V7c0-.7.2-1.1 1.2-1.1H17V2.9C16.5 2.8 15.6 2.8 14.6 2.8c-2.2 0-3.6 1.3-3.6 3.8v1.9H8.5V11H11v10h3V11h2.4l.4-2.5H14z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1 .36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.36-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2m0 1.8c-3.1 0-3.5 0-4.7.07-.9.04-1.4.2-1.7.32-.4.16-.7.36-1 .66-.3.3-.5.6-.66 1-.12.3-.28.8-.32 1.7C3.8 8.5 3.8 8.9 3.8 12s0 3.5.07 4.7c.04.9.2 1.4.32 1.7.16.4.36.7.66 1 .3.3.6.5 1 .66.3.12.8.28 1.7.32 1.2.07 1.6.07 4.7.07s3.5 0 4.7-.07c.9-.04 1.4-.2 1.7-.32.4-.16.7-.36 1-.66.3-.3.5-.6.66-1 .12-.3.28-.8.32-1.7.07-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.04-.9-.2-1.4-.32-1.7-.16-.4-.36-.7-.66-1-.3-.3-.6-.5-1-.66-.3-.12-.8-.28-1.7-.32C15.5 4 15.1 4 12 4m0 3.06A4.94 4.94 0 1 0 12 17 4.94 4.94 0 0 0 12 7.06m0 8.1A3.16 3.16 0 1 1 12 8.84a3.16 3.16 0 0 1 0 6.32m5.03-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0"/></svg></a>
-          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 4.9c-.8.36-1.7.6-2.6.7 1-.6 1.6-1.5 2-2.5-.9.5-1.9.9-3 1.1a4.5 4.5 0 0 0-7.6 4.1A12.8 12.8 0 0 1 1.6 3.6a4.5 4.5 0 0 0 1.4 6 4.4 4.4 0 0 1-2-.6v.05a4.5 4.5 0 0 0 3.6 4.4 4.5 4.5 0 0 1-2 .08 4.5 4.5 0 0 0 4.2 3.1A9 9 0 0 1 1 19.5a12.7 12.7 0 0 0 6.9 2c8.3 0 12.8-6.9 12.8-12.8v-.6c.9-.6 1.6-1.4 2.3-2.2"/></svg></a>
-          <a href="mailto:hello@littlestoriesbyrosie.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7L4 6.8V18h16V6.8L12 12zM4.5 6l7.5 4.8L19.5 6z"/></svg></a>
-        </div>
-      </div>
-
-      <!-- Right: the contact form, connected to FormSubmit.
-           Inquiries are emailed to hello@littlestoriesbyrosie.com, and the
-           customer gets an automatic reply (see _autoresponse below). -->
-      <form class="contact-form" action="https://formsubmit.co/hello@littlestoriesbyrosie.com" method="POST">
-        <!-- FormSubmit settings (hidden from visitors) -->
-        <input type="hidden" name="_subject" value="New inquiry from littlestoriesbyrosie.com">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_autoresponse" value="Hi there! Thank you so much for reaching out to Little Stories by Rosie. I've received your message and will personally get back to you within 1-2 days to talk through the details. In the meantime, feel free to follow along on Instagram @littlestoriesbyrosie. Warmly, Rosie">
-        <!-- Honeypot: bots fill this; real people can't see it. Reduces spam. -->
-        <input type="text" name="_honey" style="display:none">
-
-        <div class="field">
-          <input type="text" name="name" placeholder="Name">
-        </div>
-        <div class="field-row">
-          <div class="field"><input type="email" name="email" placeholder="Email"></div>
-          <div class="field"><input type="tel" name="phone" placeholder="Phone"></div>
-        </div>
-        <div class="field">
-          <input type="text" name="event" placeholder="Event Date + Location">
-        </div>
-        <div class="field">
-          <input type="text" name="song" placeholder="Your Favorite Song">
-        </div>
-        <div class="field message">
-          <textarea name="message" placeholder="Message"></textarea>
-          <button type="submit" class="form-submit">Submit</button>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- ============ BOOK ============ -->
-  <!-- A 3-step booking flow, no backend required:
-       1) Customer picks a session (each has its own price + deposit).
-       2) A free Cal.com calendar shows real open dates/times for that
-          session and lets them reserve a slot. The "Pay Deposit" step
-          below stays hidden until Cal.com actually confirms the booking
-          (detected via its postMessage events — see script.js) — a
-          customer can't skip straight to paying without picking a time.
-       3) A "Pay Deposit" button sends them to a Stripe Payment Link (a
-          Stripe-hosted checkout page for a fixed amount — no backend
-          needed). Rosie confirms the booking once Stripe shows the
-          deposit was paid; Cal.com only holds the time slot, it doesn't
-          collect payment itself.
-       SETUP NEEDED before this goes live:
-       - Cal.com account: littlestoriesbyrosie — create "mini-session" and
-         "full-session" event types there with the durations/availability
-         you want, and set each one's location to "In Person" (it currently
-         defaults to "Cal Video," which is for video calls, not photo
-         sessions). Also set both to "Requires confirmation" (Event type →
-         Advanced) so a slot a customer reserved but hasn't paid the
-         deposit for stays held instead of possibly getting double-booked —
-         see the longer note in script.js.
-       - In Stripe, create a Payment Link for each deposit amount ($50 and
-         $100), then replace the two data-stripe-link placeholders below
-         with your real Payment Link URLs (they look like
-         https://buy.stripe.com/xxxxx). -->
-  <section id="book" class="book-section">
-    <p class="eyebrow center">Book a Session</p>
-    <h2 class="center book-heading">Reserve Your Date</h2>
-
-    <!-- Step 1: session menu -->
-    <div class="book-step" id="book-step-session">
-      <p class="book-step-label center">Step 1 — Choose Your Session</p>
-      <div class="session-grid">
-        <button type="button" class="session-card" data-session-name="Mini Session" data-cal-link="littlestoriesbyrosie/mini-session" data-deposit="$50" data-stripe-link="https://buy.stripe.com/test_fZu3cvc8TdkQ0Pk46S00000">
-          <h3>Mini Session</h3>
-          <p class="session-price">$150</p>
-          <p class="session-deposit">$50 deposit to book</p>
-        </button>
-        <button type="button" class="session-card" data-session-name="Full Session" data-cal-link="littlestoriesbyrosie/full-session" data-deposit="$100" data-stripe-link="https://buy.stripe.com/test_bJe7sL3Cna8E2Xs0UG00001">
-          <h3>Full Session</h3>
-          <p class="session-price">$350</p>
-          <p class="session-deposit">$100 deposit to book</p>
-        </button>
-      </div>
-    </div>
-
-    <!-- Step 2: date/time picker (a plain iframe pointed at Cal.com's public
-         booking page — Cal.com's own JS embed SDK turned out to reliably
-         break when switching between two calLinks on one page, so we embed
-         the page directly instead and just swap the iframe's src). -->
-    <div class="book-step" id="book-step-calendar" hidden>
-      <p class="book-step-label center">Step 2 — Choose an Available Date</p>
-      <iframe id="cal-inline" class="cal-inline" title="Availability calendar"></iframe>
-    </div>
-
-    <!-- Step 3: deposit payment. Stays hidden until script.js detects a real
-         Cal.com booking confirmation for the current session. -->
-    <div class="book-step" id="book-step-deposit" hidden>
-      <p class="book-step-label center">Step 3 — Pay Your Deposit to Confirm</p>
-      <div class="deposit-box">
-        <p>
-          Your <strong id="deposit-session-name">session</strong> time is reserved!
-          Pay your <strong id="deposit-amount"></strong> deposit by card to confirm your booking.
-        </p>
-        <a id="deposit-pay-button" class="btn-solid deposit-pay-button" href="#" target="_blank" rel="noopener">Pay Deposit</a>
-        <p class="deposit-note">
-          You'll be taken to a secure Stripe checkout page. Your booking is
-          confirmed once the deposit is received — I'll follow up by email shortly after.
-        </p>
-        <p class="deposit-policy">
-          Deposits are non-refundable for cancellations or reschedules made within
-          7 days of your session.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <a href="#" class="brand">Little Stories <em>by Rosie</em></a>
+    <a href="index.html" class="brand">Little Stories <em>by Rosie</em></a>
     <p class="social">Follow along &middot; <a href="#">@littlestoriesbyrosie</a></p>
     <p class="credit">PHOTOS BY ROSIE &nbsp;|&nbsp; &copy; 2026 LITTLE STORIES BY ROSIE</p>
   </footer>
 
-  <!-- This connects our JavaScript file, which powers the scroll animations.
-       It sits at the end so the page content loads first. -->
+  <!-- This connects our JavaScript file, which powers the scroll animations
+       and hero parallax/slideshow. It sits at the end so the page content
+       loads first. -->
   <script src="script.js"></script>
 
 </body>

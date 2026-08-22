@@ -83,13 +83,12 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 }
 .nav-group a:hover { color: #fff; }
 .monogram {
-  font-family: var(--serif);
-  font-size: 2rem;
-  color: #fff;
   text-decoration: none;
   line-height: 1;
   flex-shrink: 0;
+  display: inline-flex;
 }
+.monogram img { width: 2.4rem; height: auto; }
 
 /* ---------------- HERO ---------------- */
 .hero {

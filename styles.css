@@ -267,7 +267,10 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 }
 
 /* Full-width divider photo between the About intro and "A Closer Look" */
-.about-banner img { width: 100%; height: 50vh; min-height: 320px; object-fit: cover; display: block; }
+/* object-position biased down: the subject (a horse in a red blanket) sits
+   in the lower half of the source photo, and a plain center crop on a very
+   wide/short banner was cutting it off entirely. */
+.about-banner img { width: 100%; height: 65vh; min-height: 380px; object-fit: cover; object-position: center 80%; display: block; }
 
 /* ---------------- A CLOSER LOOK (About page, second section) ---------------- */
 .closer-look { padding: 7rem 4vw 8rem; background: #fff; }

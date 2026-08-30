@@ -15,7 +15,7 @@
 
 <body>
 
-  <header class="nav">
+    <header class="nav">
     <nav class="nav-group">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -23,44 +23,105 @@
     </nav>
     <a href="index.html" class="monogram"><img src="images/logo/botanical-r.png" alt="Little Stories by Rosie"></a>
     <nav class="nav-group">
-      <a href="info.html">Info</a>
+      <a href="info.html">Information</a>
       <a href="contact.html">Contact</a>
       <a href="book.html">Book</a>
     </nav>
   </header>
 
   <!-- ============ PAGE HERO ============ -->
-  <section class="page-hero" style="background-image:url('images/general/DSC_1488-Edit-2.jpg')">
-    <h1>Portfolio</h1>
-  </section>
+  <section class="page-hero" style="background-image:url('images/general/DSC_1488-Edit-2.jpg')"></section>
 
   <!-- ============ PORTFOLIO ============ -->
-  <!-- Three categories, each with an image, a title, a short description,
-       and a "View Images" button linking to that gallery. -->
-  <section class="portfolio">
-    <div class="portfolio-grid">
+  <!-- Three categories, stacked full-width like Studio Reverie's category
+       list: a number, a big serif name, and an arrow. -->
+  <section class="portfolio portfolio-tight">
+    <div class="category-list">
 
-      <div class="pf-item">
-        <img src="images/families/DSC_3105.jpg" alt="Families">
-        <h3 class="pf-title">Families</h3>
-        <p class="pf-desc">For the everyday moments, growing seasons, and the stories shared across generations.</p>
-        <a href="families.html" class="btn-solid">View Images</a>
+      <div class="category-row-head cat-row-1">
+        <span class="category-index">01</span>
+        <span class="category-name">Families</span>
+        <span class="category-arrow">&rarr;</span>
+      </div>
+      <div class="category-row-panel cat-row-1">
+        <div class="category-row-panel-inner">
+          <p class="category-subhead">Growing Together, One Season at a Time</p>
+          <p class="category-desc-full">For the everyday moments, growing seasons, and the stories shared across generations. Whether it's siblings racing through a field, grandparents visiting for the weekend, or the quiet routine of a Tuesday afternoon, I document family life as it actually happens — warm, unscripted, and full of the small details you'll want to remember.</p>
+          <a href="families.html" class="link-arrow">View Families</a>
+        </div>
       </div>
 
-      <div class="pf-item">
-        <img src="images/couples/DSC_1881-Edit.jpg" alt="Couples">
-        <h3 class="pf-title">Couples</h3>
-        <p class="pf-desc">From new beginnings to decades of shared history.</p>
-        <a href="couples.html" class="btn-solid">View Images</a>
+      <div class="category-row-head cat-row-2">
+        <span class="category-index">02</span>
+        <span class="category-name">Couples</span>
+        <span class="category-arrow">&rarr;</span>
+      </div>
+      <div class="category-row-panel cat-row-2">
+        <div class="category-row-panel-inner">
+          <p class="category-subhead">Real Relationships, Honestly Told</p>
+          <p class="category-desc-full">From new beginnings to decades of shared history, couples sessions are about capturing the way you actually are together — the in-jokes, the easy quiet, the way you reach for each other without thinking. No forced poses, just the two of you.</p>
+          <a href="couples.html" class="link-arrow">View Couples</a>
+        </div>
       </div>
 
-      <div class="pf-item">
-        <img src="images/lifestyle/DSC_1454.jpg" alt="Personal Stories">
-        <h3 class="pf-title">Personal Stories</h3>
-        <p class="pf-desc">The in-between moments, familiar routines, and the beauty of ordinary life.</p>
-        <a href="personal-stories.html" class="btn-solid">View Images</a>
+      <div class="category-row-head cat-row-3">
+        <span class="category-index">03</span>
+        <span class="category-name">Personal Stories</span>
+        <span class="category-arrow">&rarr;</span>
+      </div>
+      <div class="category-row-panel cat-row-3">
+        <div class="category-row-panel-inner">
+          <p class="category-subhead">The In-Between Moments</p>
+          <p class="category-desc-full">The in-between moments, familiar routines, and the beauty of ordinary life. These sessions are for solo portraits, personal milestones, pets, and the everyday scenes that make up a life — documented simply, so you have proof of the season you're in.</p>
+          <a href="personal-stories.html" class="link-arrow">View Personal Stories</a>
+        </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO SHOWCASE ============ -->
+  <!-- Like Studio Reverie's "The Portfolio" section: pinned text on the
+       left, a 3x3 grid of real photos on the right that fade in one at a
+       time as you scroll past them. -->
+  <section class="portfolio-showcase">
+    <div class="portfolio-showcase-sticky">
+      <h2 class="portfolio-showcase-title">The Portfolio</h2>
+      <p class="portfolio-showcase-desc">
+        A closer look at the work — real families, real couples, and the
+        quiet in-between moments that make up a life. Browse by category
+        to see the full story.
+      </p>
+      <div class="portfolio-showcase-links">
+        <a href="families.html">Families <span class="arrow">&rarr;</span></a>
+        <a href="couples.html">Couples <span class="arrow">&rarr;</span></a>
+        <a href="personal-stories.html">Personal Stories <span class="arrow">&rarr;</span></a>
+      </div>
+    </div>
+    <div class="portfolio-showcase-grid">
+      <div class="showcase-col">
+        <div class="showcase-photo"><img src="images/showcase/families-1.jpg" alt="Family session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/families-2.jpg" alt="Family session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/families-3.jpg" alt="Family session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/families-4.jpg" alt="Family session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/families-5.jpg" alt="Family session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/families-6.jpg" alt="Family session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/hero-2.jpg" alt="Family session photo"></div>
+      </div>
+      <div class="showcase-col">
+        <div class="showcase-photo"><img src="images/showcase/couples-1.jpg" alt="Couples session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/couples-2.jpg" alt="Couples session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/couples-4.jpg" alt="Couples session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/couples-5.jpg" alt="Couples session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/couples-6.jpg" alt="Couples session photo"></div>
+      </div>
+      <div class="showcase-col">
+        <div class="showcase-photo"><img src="images/showcase/lifestyle-1.jpg" alt="Lifestyle session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/lifestyle-2.jpg" alt="Lifestyle session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/lifestyle-4.jpg" alt="Lifestyle session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/lifestyle-5.jpg" alt="Lifestyle session photo"></div>
+        <div class="showcase-photo"><img src="images/showcase/lifestyle-6.jpg" alt="Lifestyle session photo"></div>
+      </div>
     </div>
   </section>
 

@@ -11,11 +11,17 @@
   --text:    #34302b;   /* body text */
   --muted:   #8a8378;   /* soft grey-brown for labels */
   --accent:  #a9744f;   /* warm terracotta accent */
+  --ink:     #232a20;   /* deep green-black for the full-screen nav overlay */
   --sans: 'Jost', system-ui, sans-serif;          /* modern headings & body */
   --serif: 'Cormorant Garamond', Georgia, serif;   /* elegant italic accents */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* overflow-x lives on <html>, not <body> — Safari silently breaks
+   position:sticky on any descendant once <body> itself has a non-visible
+   overflow value on either axis (a long-documented WebKit quirk). */
+html { overflow-x: hidden; }
 
 body {
   font-family: var(--sans);
@@ -24,7 +30,6 @@ body {
   background: var(--cream);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;   /* guard against any accidental sideways scroll */
 }
 
 img { display: block; width: 100%; }
@@ -54,11 +59,12 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 
 /* ---------------- NAVIGATION ---------------- */
 /* A solid dark bar fixed to the top, with a centered monogram between two
-   groups of links — Harlow's signature nav. */
+   groups of links — every page shows the full link list, so visitors can
+   jump anywhere from anywhere. */
 .nav {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 500;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +78,7 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   flex: 1;
 }
 .nav-group:first-of-type { justify-content: flex-end; }
-.nav-group:last-of-type  { justify-content: flex-start; }
+.nav-group:last-of-type { justify-content: flex-start; }
 .nav-group a {
   font-size: 0.78rem;
   letter-spacing: 0.22em;
@@ -115,7 +121,7 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: center 70%;
   opacity: 0;
   transition: opacity 1.6s ease-in-out;   /* the crossfade between photos */
 }
@@ -128,34 +134,22 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   background: linear-gradient(rgba(30,29,26,0.28), rgba(30,29,26,0.42));
 }
 /* Keep the text above the background */
-.hero-inner { position: relative; z-index: 2; }
-/* The small caps line above the giant brand name */
-.hero-eyebrow {
-  font-size: clamp(0.7rem, 1.4vw, 0.9rem);
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  padding-left: 0.4em; /* balance the letter-spacing */
-}
-/* The giant brand name across the middle */
+.hero-inner { position: relative; z-index: 2; transform: translateY(-180px); }
+/* The italic wordmark across the middle */
 .hero-brand {
   font-family: var(--serif);
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: clamp(4rem, 15vw, 12rem);
-  letter-spacing: 0.18em;
-  line-height: 1;
-  padding-left: 0.18em; /* balance the wide tracking */
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
 }
-/* The tagline pinned near the bottom */
+/* The tagline flowing just below the wordmark */
 .hero-tagline {
-  position: absolute;
-  z-index: 2;
-  bottom: 3.5rem;
-  left: 0; right: 0;
+  margin-top: 1.75rem;
   text-align: center;
   font-size: clamp(0.85rem, 1.6vw, 1.05rem);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
   line-height: 1.9;
   color: rgba(255,255,255,0.92);
 }
@@ -214,6 +208,17 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   border-bottom: 1px solid var(--accent);
   padding-bottom: 4px;
 }
+.service-text .link-arrow { border-bottom: none; color: var(--dark); font-weight: 500; }
+.service-text .link-arrow:hover { font-weight: 700; color: #000; }
+.service-text .link-arrow .arrow {
+  width: auto;
+  height: auto;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+}
+.service-text .link-arrow:hover .arrow { background: transparent; color: inherit; }
 
 /* ---------------- ABOUT (text left, photo right with offset block) ---------------- */
 .about-section {
@@ -270,7 +275,10 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 /* object-position biased down: the subject (a horse in a red blanket) sits
    in the lower half of the source photo, and a plain center crop on a very
    wide/short banner was cutting it off entirely. */
-.about-banner img { width: 100%; height: 65vh; min-height: 380px; object-fit: cover; object-position: center 80%; display: block; }
+.about-banner { padding: 0 4vw; }
+.about-banner img {
+  width: 100%; height: 65vh; min-height: 380px; object-fit: cover; object-position: center 80%; display: block;
+}
 
 /* ---------------- A CLOSER LOOK (About page, second section) ---------------- */
 .closer-look { padding: 7rem 4vw 8rem; background: #fff; }
@@ -293,55 +301,97 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 }
 .closer-look-grid p { color: #4a4640; line-height: 1.9; margin-bottom: 1.5rem; }
 
-/* ---------------- INFO / PRICING ---------------- */
-.info-section {
-  background: #e5eae2;   /* soft sage */
-  padding: 6rem 4vw 8rem;
-}
-.info-photo { max-width: 640px; margin: 0 auto; text-align: center; }
-.info-photo img { width: 100%; height: auto; object-fit: cover; }
-/* The thin vertical line dropping from the image */
-.info-connector {
-  display: block;
-  width: 1px;
-  height: 64px;
-  background: var(--dark);
-  margin: 0 auto;
-}
-.pricing-label {
-  color: var(--dark);
-  font-weight: 500;
-  margin: 1.75rem 0 4rem;
-}
-.pricing-grid {
+/* ---------------- SESSIONS / PRICING ---------------- */
+.service-row { padding: 5rem 4vw; background: #ecdfd3; }  /* warm blush */
+.service-block {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6vw;
-  max-width: 900px;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 5vw;
+  align-items: center;
+  max-width: 1200px;
   margin: 0 auto;
 }
-.price-title {
-  font-family: 'Oswald', var(--sans);
+.service-block.reverse .service-photo { order: 2; }
+.service-block.reverse .service-text { order: 1; }
+.service-photo { overflow: hidden; }
+.service-photo img { width: 100%; height: auto; object-fit: cover; display: block; }
+.service-title {
+  font-family: var(--serif);
+  font-style: italic;
   font-weight: 400;
-  text-transform: uppercase;
   color: var(--dark);
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  letter-spacing: 0.03em;
-  margin-bottom: 2rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1.5rem;
 }
-.price-meta { color: #4a4640; line-height: 1.9; margin-bottom: 1.75rem; }
-.price-list { list-style: none; }
-.price-list li {
+.service-desc { color: #4a4640; line-height: 1.9; margin-bottom: 1.75rem; }
+.service-list { list-style: none; margin-bottom: 2rem; }
+.service-list li {
   color: #4a4640;
   line-height: 2.1;
   padding-left: 1.2em;
   position: relative;
 }
-.price-list li::before { content: '\2022'; position: absolute; left: 0; }  /* bullet dot */
-.info-cta { text-align: center; margin-top: 4.5rem; }
+.service-list li::before { content: '\2022'; position: absolute; left: 0; }  /* bullet dot */
+
+/* ---------------- PINNED PHOTO COLLAGE (Home page signature moment) ----------------
+   A tall section: the heading stays pinned centered in the viewport (via
+   position:sticky) while real portfolio photos, scattered around it,
+   fade + rise into place as the visitor scrolls past. */
+.collage-pin {
+  position: relative;
+  height: 220vh;
+  background: var(--cream);
+}
+.collage-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 0 6vw;
+  text-align: center;
+  z-index: 2;
+}
+.collage-mark { margin-bottom: 0.5rem; opacity: 0.55; }
+.collage-mark img { width: 2.75rem; height: auto; }
+.collage-heading {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--dark);
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  max-width: 20ch;
+  line-height: 1.2;
+}
+.collage-copy { max-width: 40ch; color: #57534d; }
+.collage-photo {
+  position: absolute;
+  width: clamp(190px, 19vw, 270px);
+  box-shadow: 0 30px 60px -20px rgba(31,29,26,0.35);
+  z-index: 1;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+/* Positioned with "right"/"left: calc(50% + ...)" rather than a plain vw
+   offset from the edge — that measures outward from the CENTER, so the
+   photos always keep a guaranteed gap from the text column no matter how
+   narrow or wide the window is, instead of drifting inward and overlapping it. */
+.cp-1 { top: 0vh;   right: calc(50% + max(300px, 16vw)); width: clamp(280px, 27vw, 380px); }
+.cp-2 { top: 6vh;   left:  calc(50% + max(300px, 20vw)); width: clamp(220px, 20vw, 300px); aspect-ratio: 4/3; }
+.cp-4 { top: 50vh;  left:  calc(50% + max(300px, 16vw)); width: clamp(260px, 25vw, 360px); aspect-ratio: 4/3; }
+.cp-5 { top: 84vh;  right: calc(50% + max(300px, 18vw)); width: clamp(220px, 21vw, 300px); }
+.cp-6 { top: 92vh;  left:  calc(50% + max(300px, 23vw)); width: clamp(280px, 28vw, 380px); }
+.cp-7 { top: 128vh; right: calc(50% + max(300px, 16vw)); width: clamp(200px, 19vw, 270px); aspect-ratio: 1/1; }
+.cp-8 { top: 136vh; left:  calc(50% + max(300px, 19vw)); width: clamp(240px, 23vw, 320px); }
+.cp-9 { top: 172vh; right: calc(50% + max(300px, 21vw)); width: clamp(210px, 19vw, 280px); aspect-ratio: 4/3; }
 
 /* ---------------- PORTFOLIO (3 category columns) ---------------- */
-.portfolio { padding: 7rem 4vw; background: #f1ebe1; }  /* warm cream */
+.portfolio { padding: 7rem 4vw 0; background: #f1ebe1; }  /* warm cream */
+.portfolio-tight { padding-top: 0; }
+.portfolio-tight .category-list { margin-top: 0; }
 .portfolio-intro { max-width: 40rem; margin: 0 auto 5rem; }
 .portfolio-intro h2 {
   font-family: 'Oswald', var(--sans);
@@ -353,44 +403,190 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   margin-bottom: 1.5rem;
 }
 .portfolio-intro p:not(.eyebrow) { color: #4a4640; line-height: 1.9; }
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4vw;
-  max-width: 1300px;
-  margin: 0 auto;
-  text-align: center;
+
+/* Pinned stacking category list — like Studio Reverie's "Weddings /
+   Editorial / Education" list: each header sticks in place once you
+   scroll to it and STAYS stuck there permanently, accumulating into a
+   stack (Weddings stays pinned as Editorial's turn comes, and so on),
+   while the current category's fuller description scrolls past
+   underneath.
+
+   The header/panel pairs are INTERLEAVED in the actual markup (head1,
+   panel1, head2, panel2, head3, panel3) in normal document flow — not
+   grouped as "all headers, then all panels". That matters: a sticky
+   element only starts sticking once scrolling would carry its natural
+   position past its `top` value. If all three headers were grouped
+   together at the very start of the list, they'd all be near their
+   sticky targets simultaneously and the whole stack would form at once,
+   right when the list appears. Interleaved, header 2's natural position
+   sits after panel 1's height — so it only reaches the stack once
+   you've actually scrolled through category 1's content. */
+.category-list {
+  margin: 3rem -4vw 0;
+  /* script.js measures the real nav/header heights (which vary by
+     browser/OS/zoom/font-load) and sets --nav-h/--head-h for real;
+     these are just fallback values for the instant before that runs. */
+  --nav-h: 84px;
+  --head-h: 140px;
 }
-/* Each column is a flex box so the button can be pinned to the bottom,
-   keeping all three buttons aligned even when descriptions differ in length. */
-.pf-item {
+/* The header: number, name, arrow. Indented well past the edge so the
+   title sits nearer the row's center instead of hugging the left, and
+   padded well short of the right edge so the arrow isn't flush against
+   it. Each has its OWN opaque background — a sticky element doesn't
+   block out what's beneath it automatically, so without this the panel
+   text scrolling underneath would show straight through it. */
+.category-row-head {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  height: var(--head-h);
+  padding: 0 18vw 0 max(4vw, 16vw);
+  border-top: 1px solid rgba(31,29,26,0.15);
+}
+.category-row-head.cat-row-1 { top: var(--nav-h); z-index: 3; background: var(--cream); }
+.category-row-head.cat-row-2 { top: calc(var(--nav-h) + var(--head-h)); z-index: 2; background: #e5eae2; }
+.category-row-head.cat-row-3 {
+  top: calc(var(--nav-h) + 2 * var(--head-h));
+  z-index: 1;
+  background: #ecdfd3;
+}
+.category-index {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.category-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+  color: var(--dark);
+  flex: 1;
+}
+.category-arrow {
+  font-size: 1.5rem;
+  color: var(--dark);
+  flex-shrink: 0;
+  transition: transform 0.35s ease;
+}
+.category-row-head:hover .category-arrow { transform: translateX(10px); }
+/* The panel flows normally right after its header. Each has its own
+   opaque background matching its header. */
+.category-row-panel {
+  min-height: 48vh;
+  padding-top: 2.5rem;
+}
+.category-row-panel.cat-row-1 { background: var(--cream); }
+.category-row-panel.cat-row-2 { background: #e5eae2; }
+.category-row-panel.cat-row-3 { background: #ecdfd3; }
+.category-row-panel-inner {
+  max-width: 62rem;
+  padding: 0 4vw 3.5rem max(4vw, 16vw);
+}
+.category-subhead {
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.category-desc-full { color: #57534d; line-height: 1.9; margin-bottom: 1.5rem; }
+
+/* ---------------- PORTFOLIO SHOWCASE ----------------
+   Like Studio Reverie's "The Portfolio" section: pinned text on the left
+   (the section is a 2-column grid, so the sticky text's containing block
+   is exactly as tall as the photo grid beside it — a standard, reliable
+   sticky-sidebar pattern), with a 3x3 grid of photos on the right that
+   fade + rise into place one at a time as you scroll past them. */
+.portfolio-showcase {
+  display: grid;
+  grid-template-columns: 42% 58%;
+  background: var(--ink);
+}
+.portfolio-showcase-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100%;
+  justify-content: center;
+  padding: 0 4vw 0 calc(max(4vw, 16vw) + 55px);
 }
-.pf-item img {
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  margin-bottom: 2.5rem;
-  width: 100%;
-}
-.pf-title {
-  font-family: 'Oswald', var(--sans);
+.portfolio-showcase-title {
+  font-family: var(--serif);
+  font-style: italic;
   font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.portfolio-showcase-desc {
+  color: rgba(255,255,255,0.7);
+  max-width: 26rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.portfolio-showcase-links { border-top: 1px solid rgba(255,255,255,0.2); }
+.portfolio-showcase-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--dark);
-  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
-  letter-spacing: 0.03em;
-  margin-bottom: 1.25rem;
 }
-.pf-desc {
-  color: #57534d;
-  max-width: 22rem;
-  margin: 0 auto 2.5rem;
+.portfolio-showcase-links .arrow {
+  width: auto;
+  height: auto;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+  transition: transform 0.35s ease;
 }
-/* margin-top:auto pushes the button to the bottom of the column */
-.pf-item .btn-solid { margin-top: auto; }
+.portfolio-showcase-links a:hover .arrow { background: transparent; color: inherit; }
+.portfolio-showcase-links a:hover .arrow { transform: translateX(8px); }
+.portfolio-showcase-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  overflow: hidden;
+  padding: 0 18vw 0 2vw;
+}
+.showcase-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+  will-change: transform;
+}
+.showcase-photo {
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+.portfolio-showcase-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  animation: showcase-kenburns 16s ease-in-out infinite alternate;
+}
+.showcase-col:nth-child(1) .showcase-photo img { animation-delay: -2s; }
+.showcase-col:nth-child(2) .showcase-photo img { animation-delay: -7s; }
+.showcase-col:nth-child(3) .showcase-photo img { animation-delay: -12s; }
+@keyframes showcase-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.12); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-showcase-grid img { animation: none; }
+}
+
 /* Solid black button ("View Images") */
 .btn-solid {
   display: inline-block;
@@ -401,9 +597,9 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
 }
-.btn-solid:hover { background: #000; }
+.btn-solid:hover { background: #000; transform: translateY(-3px); }
 
 /* ---------------- BOOK ---------------- */
 .book-section { background: #e5eae2; padding: 7rem 4vw 8rem; }  /* soft sage, distinct from Contact's warm cream */
@@ -469,12 +665,22 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
 
 /* ---------------- CONTACT ---------------- */
 .contact-section { background: #f1ebe1; }  /* warm cream */
-.contact-banner img {
-  width: 100%;
-  height: 70vh;
+/* Same drift as the homepage hero: script.js shifts the photo slower
+   than the page scrolls, so it lags gently behind while in view. */
+.contact-banner {
+  overflow: hidden;
+  position: relative;
+  height: calc(100vh - var(--nav-h, 84px));
   min-height: 400px;
+}
+.contact-banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 230%;
   object-fit: cover;
   display: block;
+  will-change: transform;
 }
 .contact-body {
   display: grid;
@@ -581,12 +787,19 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   scrollbar-width: none;              /* hide scrollbar in Firefox */
 }
 .gallery-track::-webkit-scrollbar { display: none; }  /* hide in Safari/Chrome */
-.gallery-track img {
+/* Each photo gets its own clipping box so the hover zoom below can't
+   spill into its neighbors. */
+.gallery-item {
   flex: 0 0 calc((100% - 20px) / 3);  /* about 3 photos across */
   height: 82vh;
   min-height: 460px;
-  object-fit: cover;
+  overflow: hidden;
   scroll-snap-align: start;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* The row under the photos: category switcher on the left, arrows on the right */
@@ -687,17 +900,38 @@ h1 em, h2 em, .brand em { font-family: var(--serif); font-style: italic; }
   .nav-group:first-of-type, .nav-group:last-of-type { justify-content: center; }
   .monogram { order: -1; width: 100%; text-align: center; margin-bottom: 0.4rem; }
   .nav-group a { font-size: 0.7rem; letter-spacing: 0.15em; }
+  /* The sticky/scattered collage doesn't translate to small screens —
+     collapse it into a simple stacked block instead. */
+  .collage-pin { height: auto; }
+  .collage-sticky { position: static; height: auto; padding: 5rem 8vw 3rem; }
+  .collage-photo { display: none; }
   .about-section { padding: 5rem 8vw; }
   .about-inner { grid-template-columns: 1fr; gap: 4rem; }
   .about-photo::before { top: -1.5rem; right: -1.5rem; }
-  .gallery-track img { flex: 0 0 85%; height: 60vh; }
+  .gallery-item { flex: 0 0 85%; height: 60vh; }
   .gallery-intro { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 6vw 5rem; }
-  .portfolio-grid { grid-template-columns: 1fr; gap: 4rem; }
-  .pricing-grid { grid-template-columns: 1fr; gap: 3.5rem; max-width: 24rem; }
+  /* The pinned-stacking effect needs real scroll room to work — on a
+     short mobile viewport it just falls back to a plain, non-sticky list. */
+  .category-list { margin: 2rem -4vw 0; }
+  .category-row-head {
+    position: static;
+    height: auto;
+    padding: 1.75rem 4vw;
+    gap: 1.25rem;
+  }
+  .category-row-panel { min-height: 0; padding-top: 0; }
+  .category-row-panel-inner { padding: 0 4vw 2.25rem; }
+  .portfolio-showcase { grid-template-columns: 1fr; }
+  .portfolio-showcase-sticky { position: static; height: auto; padding: 4rem 8vw 2rem; }
+  .portfolio-showcase-grid { flex-direction: column; }
+  .showcase-col { flex-direction: row; transform: none !important; }
+  .service-block, .service-block.reverse { grid-template-columns: 1fr; gap: 1.5rem; }
+  .service-block.reverse .service-photo { order: 1; }
+  .service-block.reverse .service-text { order: 2; }
   .session-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .deposit-box { padding: 2.25rem 1.5rem; }
   .contact-body { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 6vw 5rem; }
-  .contact-banner img { height: 45vh; }
+  .contact-banner { height: 45vh; }
   .about-banner img { height: 35vh; }
   .closer-look { padding: 5rem 8vw; }
   .closer-look-grid { grid-template-columns: 1fr; gap: 1rem; }
